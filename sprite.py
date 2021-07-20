@@ -17,7 +17,6 @@ class Cyclist():
         self.initialjumpspeed = -36
         self.closestYUnder = 320
         self.column = 0
-        self.accelerationMultiplier = 1
         self.xSpeed = 0
         self.ySpeed = 0
         self.animationImages = [
@@ -61,12 +60,8 @@ class Cyclist():
         # Friction decelerates
         if(self.xSpeed > 0):
             self.accelerate(-0.5)
-            if(self.lowGravity):
-                self.accelerate(0.2)
         elif(self.xSpeed < 0):
             self.accelerate(0.5)
-            if(self.lowGravity):
-                self.accelerate(-0.2)
         
         blocksTouching = self.levelImage.getInteractiveBlocksTouching(pygame.Rect(self.x+50,self.y,20,81))
         blocks = []
@@ -93,9 +88,9 @@ class Cyclist():
         return blocks
         
     def accelerate(self, multiplier):
-        self.xSpeed += (ACCELERATION * self.accelerationMultiplier * multiplier)
+        self.xSpeed += (ACCELERATION * multiplier)
         if(self.xSpeed > self.topspeed or self.xSpeed < -1 * self.topspeed):
-            self.xSpeed -= (ACCELERATION * self.accelerationMultiplier * multiplier)
+            self.xSpeed -= (ACCELERATION * multiplier)
 
     def initJump(self):
         self.isJumping = True
