@@ -1,5 +1,4 @@
-# Welcome to Unicycle Simulator! 
-Thank you for reading the README.
+# Welcome to Unicycle Simulator!
 
 ### Controls
 - Right arrow/D, Left arrow/a: Accelerate right, left
