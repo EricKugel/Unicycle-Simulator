@@ -17,5 +17,5 @@ There are several blocks with certain properties.
 - Trampolines: Boing!
 - Banner: Banners, or checkpoints, turn red when you touch them. If you fail a level, you go back to the last checkpoint you touched.
 
-### @Mr. Bartucz: Note for teachers
-There are several test lines above the game loop in main.py. These turn on purchases and unlock levels. Try out the parachute!
+### Note for teachers
+There are several test lines above the game loop in main.py. These turn on purchases and unlock levels. Try out the parachute and level 6!
