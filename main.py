@@ -115,7 +115,7 @@ def unlockAllLevels():
 # Just uncomment what you want.
 
 # Unlock all levels except 6
-# unlockAllLevels()
+unlockAllLevels()
 
 # Unlock level 6 (normally only possible through purchase)
 # levels[5]["locked"] = False

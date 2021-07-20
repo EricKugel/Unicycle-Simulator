@@ -29,6 +29,8 @@ class Cyclist():
 
     def update(self, chuting):
         self.x += self.xSpeed
+        if(self.x < -40):
+            self.x = -40
         self.y += self.ySpeed
         self.isChuting = chuting
 
