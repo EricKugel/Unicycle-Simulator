@@ -7,6 +7,7 @@ PARACHUTE = pygame.image.load("images/chute.png")
 class Cyclist():
     def __init__(self, surface, levelImage, checkpoint):
         self.isJumping = False
+        self.lowGravity = False
         self.isChuting = False
         self.surface = surface
         self.levelImage = levelImage
@@ -42,7 +43,10 @@ class Cyclist():
             # If at peak of jump (not fall, hence elif), reupdate closestYUnder
             if(self.ySpeed == 0):
                 self.closestYUnder = self.levelImage.getClosestYUnder(self.x+60, self.y+80)
-            self.ySpeed +=6
+            if not self.lowGravity:
+                self.ySpeed +=6
+            else:
+                self.ySpeed += 1
             if(self.isChuting and self.ySpeed > 0):
                 self.ySpeed = 6
             if(self.y + 80 > self.closestYUnder):
@@ -57,8 +61,12 @@ class Cyclist():
         # Friction decelerates
         if(self.xSpeed > 0):
             self.accelerate(-0.5)
+            if(self.lowGravity):
+                self.accelerate(0.2)
         elif(self.xSpeed < 0):
             self.accelerate(0.5)
+            if(self.lowGravity):
+                self.accelerate(-0.2)
         
         blocksTouching = self.levelImage.getInteractiveBlocksTouching(pygame.Rect(self.x+50,self.y,20,81))
         blocks = []
@@ -66,12 +74,12 @@ class Cyclist():
             if block[0] == 't':
                 # Boing!
                 self.isJumping = True
-                self.ySpeed = -48
+                if not self.lowGravity:
+                    self.ySpeed = -48
+                else:
+                    self.ySpeed = -25
             else:
                 blocks.append(block)
-    
-            
-
         if not self.isJumping:
             self.animationTick += self.xSpeed
         if (self.animationTick >= 80 or self.animationTick <= -80):
@@ -98,3 +106,6 @@ class Cyclist():
 
     def setInitialJumpSpeed(self, jumpSpeed):
         self.initialjumpspeed = jumpSpeed
+    def setLowGravity(self):
+        self.lowGravity = True
+        self.initialjumpspeed = -20

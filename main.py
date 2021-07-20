@@ -104,6 +104,8 @@ def reset():
         cyclist.setTopSpeed(25)
     if shop[3]["bought"]:
         cyclist.setInitialJumpSpeed(-48)
+    if level == 5:
+	    cyclist.setLowGravity()
 
 def unlockAllLevels():
     for i in range(5):
@@ -231,6 +233,8 @@ while True:
             cyclist.setTopSpeed(25)
         if shop[3]["bought"]:
             cyclist.setInitialJumpSpeed(-48)
+        if level == 5:
+            cyclist.setLowGravity()
         state = STATE_PLAY
 
     #-----------------------------------------------------------------------------
