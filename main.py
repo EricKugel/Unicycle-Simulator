@@ -27,6 +27,7 @@ LOCK = pygame.image.load("images/lock.png")
 LOGO = pygame.transform.scale(pygame.image.load("images/logo.png"),(640,480))
 FAILED = pygame.transform.scale(pygame.image.load("images/failed.png"),(640,480))
 COMPLETE = pygame.transform.scale(pygame.image.load("images/complete.png"),(640,480))
+GAMEOVER = pygame.transform.scale(pygame.image.load("images/gameover.png"),(640,480))
 
 SHOP_RECT = pygame.Rect(202,419,190,50)
 BACK_RECT = pygame.Rect(14,433, 108,41)
@@ -69,6 +70,7 @@ STATE_RETURN_TO_CHECKPOINT = 6
 STATE_LEVEL_SELECT = 7
 STATE_LOGO = 8
 STATE_SHOP = 9
+STATE_GAME_OVER = 10
 state = STATE_LOGO
 
 def setState(newState):
@@ -115,13 +117,13 @@ def unlockAllLevels():
 # Just uncomment what you want.
 
 # Unlock all levels except 6
-unlockAllLevels()
+# unlockAllLevels()
 
 # Unlock level 6 (normally only possible through purchase)
-# levels[5]["locked"] = False
+levels[5]["locked"] = False
 
 # Get 1000 coins
-coins = 1000
+# coins = 1000
 
 # Purchase wig and nose
 # shop[0]["bought"] = True
@@ -143,7 +145,7 @@ while True:
     SURFACE.fill(WHITE)
     
     if state == STATE_FAIL:
-        SURFACE.blit(FAILED, (0,0))
+        SURFACE.blit(FAILED, (-1,-1))
         coins -= 10
         if coins < 0:
             coins = 0
@@ -152,7 +154,7 @@ while True:
     #-----------------------------------------------------------------------------
 
     elif state == STATE_LOGO:
-        SURFACE.blit(LOGO,(0,0))
+        SURFACE.blit(LOGO,(-1,-1))
         state = STATE_LEVEL_SELECT
         pygame.display.update()
         pygame.time.wait(1500)
@@ -162,10 +164,21 @@ while True:
     elif state == STATE_COMPLETE_LEVEL:
         if level < 4:
             levels[level+1]["locked"] = False
-        SURFACE.blit(COMPLETE, (0,0))
+        SURFACE.blit(COMPLETE, (-1,-1))
         setState(STATE_LEVEL_SELECT)
+        if(level == 5):
+            setState(STATE_GAME_OVER)
         pygame.display.update()
         pygame.time.wait(1500)
+
+    #-----------------------------------------------------------------------------
+        
+    elif state == STATE_GAME_OVER:
+        SURFACE.blit(GAMEOVER, (0,0))
+        pygame.display.update()
+        pygame.time.wait(1500)
+        pygame.quit()
+        sys.exit()
 
     #-----------------------------------------------------------------------------
 
