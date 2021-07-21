@@ -145,7 +145,7 @@ while True:
     SURFACE.fill(WHITE)
     
     if state == STATE_FAIL:
-        SURFACE.blit(FAILED, (-1,-1))
+        SURFACE.blit(FAILED, (0,0))
         coins -= 10
         if coins < 0:
             coins = 0
@@ -154,7 +154,7 @@ while True:
     #-----------------------------------------------------------------------------
 
     elif state == STATE_LOGO:
-        SURFACE.blit(LOGO,(-1,-1))
+        SURFACE.blit(LOGO,(0,0))
         state = STATE_LEVEL_SELECT
         pygame.display.update()
         pygame.time.wait(1500)
@@ -164,7 +164,7 @@ while True:
     elif state == STATE_COMPLETE_LEVEL:
         if level < 4:
             levels[level+1]["locked"] = False
-        SURFACE.blit(COMPLETE, (-1,-1))
+        SURFACE.blit(COMPLETE, (0,0))
         setState(STATE_LEVEL_SELECT)
         if(level == 5):
             setState(STATE_GAME_OVER)
