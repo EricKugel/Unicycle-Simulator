@@ -120,7 +120,7 @@ def unlockAllLevels():
 # unlockAllLevels()
 
 # Unlock level 6 (normally only possible through purchase)
-levels[5]["locked"] = False
+# levels[5]["locked"] = False
 
 # Get 1000 coins
 # coins = 1000
