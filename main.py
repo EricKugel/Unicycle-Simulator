@@ -183,6 +183,10 @@ while True:
                 isChuting = True
         
         blocks = cyclist.update(isChuting)
+
+        if(cyclist.y >= 400):
+            setState(STATE_FAIL)
+
         for block in blocks:
             if block[0] == 's':
                 setState(STATE_FAIL)

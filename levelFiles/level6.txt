@@ -1,12 +1,12 @@
-                                                            f
-                $$$$                                        f
-                $$$$                                        f
-                ____          _____                         f
-          $$$$     q                                        f
-          ____     q   ____                                 f
-    $ $            q                                        f
-    ____           q                                        f
-    q              q                    b                   f
-    q   ss  ss  t  q  tssssssssss       p                   f
-gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
-dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+                        $$$$$$                                                                                                                                                                  f
+                        $$$$$$                                                                                                                                                                  f
+                        ______                                                                                                                                                                  f
+                                                                                                                                                          $$$$$$$$$$$$$$$$$                     f
+            ______                                                                                                 $$$$                                $$$$$$$$$$$$$$$$$$$$$$                   f
+                                                                                                                  ______                              $$$$$$$     _    $$$$$$$                  f
+                                                                                          $$$$$$               $                                     $$$$$                $$$$$                 f
+                             s                                                            ______               _                                    $$$$$   _           _  $$$$$   _____        f
+                        ______                                                                           $$$                                       $$$                       $$$$               f
+            ______                                     $ $ $ $ $ $ $ $ $ $   ____                      _______                                    $$   _                      _$$$              f
+______                                    ____________ _ _ _ _ _ _ _ _ _ _                                                            $$         $                               $$             f
+                                                                                                                                    ______       _                                 $            f

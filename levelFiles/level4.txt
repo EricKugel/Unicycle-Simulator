@@ -1,12 +1,12 @@
-                                h      h                                    f
-                                q$$$$$$q  $$s$$s$$s$$ss$$s                  f
-                      $         qggggggq  gggggggggggggggg                  f
-                   $  h  $$     q      q                                    f
-                $  h  q  $$     q$$$$$$q  $                                 f
-             $  h  q  q  __     qggggggq  h$                                f
-          $  h  q  q  q         q      q  qh$            $  $  $  t         f
-       $  h  q  q  q  q         q$$$$$$q  qqh$           h  h  h  h         f
-    $  h  q  q  q  q  q      b  qggggggq  qqqh$   b     hq  q  q  q         f
-    h sq sq sq sq sq sq ssss p  q      q  qqqqh$  p    hqqssqssqssqss       f
-gggggggggggggggggggggggggggggggggggggggggggggggsggggggggggggggggggggggggggggggggggggggggggg
-ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+                                h      h                                 q q q q q q q   $$$$$$$$$$$   f
+                                q$$$$$$q  $$s$$s$$s$$ss$$s               q q q qgqgqgq   $$$$$$$$$$$   f
+                      $         qggggggq  gggggggggggggggg               q q qgq q q q   ggsggggssgg   f
+                   $  h  $$     q      q                                 q qgq q q q q                 f
+                $  h  q  $$     q$$$$$$q  $                              q q qgq q q q                 f
+             $  h  q  q  __     qggggggq  h$                             q q q qgq q q                 f
+          $  h  q  q  q         q      q  qh$            $  $  $  t      q q qgq q q q                 f
+       $  h  q  q  q  q         q$$$$$$q  qqh$           h  h  h  h      q qgq q q q q                 f
+    $  h  q  q  q  q  q      b  qggggggq  qqqh$         hq  q  q  q      qgq q q q q q                 f
+    h sq  q  q sq  q  q ssss p  q      q  qqqqh$       hqqssqssqssqss    q q q q q q q                 f
+gggggggggggggggggggggggggggggggggggggggggggggggsgggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
+dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
