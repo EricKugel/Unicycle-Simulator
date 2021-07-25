@@ -117,25 +117,25 @@ def unlockAllLevels():
 # Just uncomment what you want.
 
 # Unlock all levels except 6
-# unlockAllLevels()
+unlockAllLevels()
 
 # Unlock level 6 (normally only possible through purchase)
-# levels[5]["locked"] = False
+levels[5]["locked"] = False
 
 # Get 1000 coins
-# coins = 1000
+coins = 1000
 
 # Purchase wig and nose
-# shop[0]["bought"] = True
-# shop[1]["bought"] = True
+shop[0]["bought"] = True
+shop[1]["bought"] = True
 
 # Purchase increased speed, purchase increased jump power
-# shop[2]["bought"] = True
-# shop[3]["bought"] = True
+shop[2]["bought"] = True
+shop[3]["bought"] = True
 
 # Purchase parachute!
 # Yahoo!
-# shop[4]["bought"] = True
+shop[4]["bought"] = True
 
 while True:
     for event in pygame.event.get():
