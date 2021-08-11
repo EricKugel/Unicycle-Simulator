@@ -12,7 +12,7 @@ class LevelImage():
         self.levelArray = []
         self.blockImages = {}
 
-        levelFile = open(f"levelFiles/level{level+1}.txt")
+        levelFile = open("levelFiles/level" + str(level+1) + ".txt")
         for i in range (12):
             levelLine = levelFile.readline()
             levelLinearray = []
@@ -22,8 +22,7 @@ class LevelImage():
             self.levelArray.append(levelLinearray)
 
         for filename in os.listdir('blockImages'):
-            self.blockImages[filename[0:1]] = pygame.image.load(f"blockImages/{filename}")
-
+            self.blockImages[filename[0:1]] = pygame.image.load("blockImages/"+filename)
     def drawLevel(self, x):
         for line in range (len(self.levelArray)):
             for char in range (len(self.levelArray[line])):

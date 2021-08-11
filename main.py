@@ -1,10 +1,15 @@
 ####### UNICYCLE SIMULATOR #######
 import pygame, sys
+import cwiid
 from pygame.locals import *
 from level import LevelImage
 from sprite import Cyclist
 
 pygame.init()
+
+wm = cwiid.Wiimote()
+wm.rpt_mode = cwiid.RPT_BTN
+
 FPS = 12
 FramePerSec = pygame.time.Clock()
 SURFACE = pygame.display.set_mode((640,480))
@@ -90,12 +95,6 @@ def buy(item):
             coins -= item["price"]
             if item["name"] == "level 6":
                 levels[5]["locked"] = False
-        else:
-            boughtText = COIN_FONT.render(f"You don't have enough coins for item '{item['name']}'!",BLACK,True)
-            SURFACE.blit(boughtText,(250,440))
-    else:
-        boughtText = COIN_FONT.render(f"Item '{item['name']}' is already bought!",BLACK,True)
-        SURFACE.blit(boughtText,(250,440))
 
 def reset():
     global levelImage, checkpoint, cyclist
@@ -223,15 +222,15 @@ while True:
             pygame.draw.circle(alphaSurface,pygame.Color(190,190,190,140),((68,cyclist.y+6)),15)
             pygame.draw.circle(alphaSurface,pygame.Color(0,0,0),((68,cyclist.y+6)),15,2)
             SURFACE.blit(alphaSurface, (0,0))
-        if keys[pygame.K_LEFT]: 
+        if keys[pygame.K_LEFT] or (wm.state['buttons'] & cwiid.BTN_UP):
             cyclist.accelerate(-1 * multiplier)
-        if keys[pygame.K_RIGHT]: 
+        if keys[pygame.K_RIGHT] or (wm.state['buttons'] & cwiid.BTN_DOWN): 
             cyclist.accelerate(multiplier)
         
         if keys[pygame.K_DOWN]: 
             #Lean back
             pass
-        if (keys[pygame.K_SPACE] and not cyclist.isJumping):
+        if ((keys[pygame.K_SPACE]  or (wm.state['buttons'] & cwiid.BTN_2)) and not cyclist.isJumping):
             cyclist.initJump()
 
     #-----------------------------------------------------------------------------
@@ -291,7 +290,7 @@ while True:
                 SURFACE.blit(LOCK, (levels[i]["selectRect"].left + 20, levels[i]["selectRect"].top + 20))
             if levels[i]["selectRect"].collidepoint(coords):
                 if levels[i]["locked"]:
-                    lockedText = COIN_FONT.render(f"Level {i + 1} is locked!",BLACK,True)
+                    lockedText = COIN_FONT.render("Level " + str(i+1) + " is locked!",BLACK,True)
                     SURFACE.blit(lockedText,(400,440))
                 else:
                     level = i
