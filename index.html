@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Unicycle Simulator</title>
+        <style>
+            #canvas, #progess {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            #progressComplete {
+                float: left;
+            }
+
+            #progressNotComplete {
+                float: right;
+            }
+
+            body {
+                background-color: #999999;
+            }
+
+            #author {
+                position: absolute;
+                bottom: 20px;
+                right: 20px;
+            }
+        </style>
+        <script src = "image-manager.min.js"></script>
+        <script src = "main.js"></script>
+    </head>
+    <body>
+        <div id = "progress">
+            <h1>Loading...</h1>
+            <div id = "progressBar">
+                <div id = "progressComplete" style = "background-color: green" width = 0></div>
+                <div id = "progressNotComplete" style = "background-color: white" width = 640></div>
+            </div>
+        </div>
+        <canvas width = 640 height = 480 id = "canvas">
+            Why your browser no support canvas??
+        </canvas>
+        <div id = "author">Eric Kugel 2022</div>
+    </body>
+</html>
