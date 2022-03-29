@@ -19,5 +19,5 @@ There are several blocks with certain properties.
 ### Game
 Win by getting enough coins to buy level 6, and then beat level 6.
 
-### Note for teachers
+### Note
 There are several test lines above the game loop in main.py. These turn on purchases and unlock levels. Try out the parachute and level 6!
