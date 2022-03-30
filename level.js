@@ -3,9 +3,6 @@ class LevelImage {
         this.ctx = ctx;
         this.level = level;
         this.levelArray = LEVEL_FILES[level].split("\n");
-        if (this.levelArray.length < 12) {
-            alert("Problem!");
-        }
     }
 
     drawLevel(x) {
@@ -23,7 +20,7 @@ class LevelImage {
         var cells = [];
         for (var line = 0; line < this.levelArray.length; line++) {
             var cell = this.levelArray[line][column];
-            if ("_dght".includes(cell)) {
+            if ("ldght".includes(cell)) {
                 cells.push(line * 40);
             }
         }
@@ -70,48 +67,48 @@ LEVEL_FILES = [
 `                                                                                                                  f
                 $$$                                                                                               f
                 $$$                                                                                    $          f
-                ___                                                                         $   $$      $$$       f
+                lll                                                                         $   $$      $$$       f
           $$$$           $$                                                      $$$               $$         $   f
-          ____           __                                              $$     _____     $    $$      $$$        f
-     $$                                              $$$       $$$$     _____                               $$    f
-    ____                                            _____     _______                              $              f
+          llll           ll                                              $$     lllll     $    $$      $$$        f
+     $$                                              $$$       $$$$     lllll                               $$    f
+    llll                                            lllll     lllllll                              $              f
                                         b                                              b     $                    f
         ss  ss  t     tssssssss         p   ss  ss  ssssssss  s s s s s s s s s s s s  p  t s t s t t s s t s t s f
 ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
 ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd`,
 
-`____________________________                                     $$$$$$$$$                            f
-                                                                 _________                            f
+`llllllllllllllllllllllllllll                                     $$$$$$$$$                            f
+                                                                 lllllllll                            f
                                                             $$                                        f
-                                                            __                                        f
+                                                            ll                                        f
             $         $     $                                                          $              f
     $   $   $     $   $     $                                   $                    $$$$$            f
-    $   $   t     $   t     t                                $  _                   $$$ $$$           f
-    _   _   _     _   _     _                                _                     $$     $$          f
+    $   $   t     $   t     t                                $  l                   $$$ $$$           f
+    l   l   l     l   l     l                                l                     $$     $$          f
                                     b                                           b                     f
       tsssssssssssssssssssssssssss  p     $$$$$$$$$$$$$$     ssssssssssssssss   p  tsssst             f
-________________________________________s $$$$$$$$$$$$$$  s____________________________________________
-_______________________________________________s______s________________________________________________`,
+lllllllllllllllllllllllllllllllllllllllls $$$$$$$$$$$$$$  sllllllllllllllllllllllllllllllllllllllllllll
+lllllllllllllllllllllllllllllllllllllllllllllllsllllllsllllllllllllllllllllllllllllllllllllllllllllllll`,
 
-`____________                                $$$$$$$$$$$$$$                $                            f                                              
-________                                    ______________                $                            f     tt tt                                   
-____                                                                      $                            f   _________                               
-__                                                                        t                            f   _sssssss_                                 
-_                                                                      s____s$                         f   s       s                                
-                    $$$$$$                      t                    s__________s$                     f   s       s                                
-                  s_______                      _                 s_________________s$                 f   s       s                                
-               s________    $                              $$ s_________________________s$             f   _sssssss_                                   
-           s____________     $          b            $$  s_________________________________s$          f   _________                            
-       s________________ssss   ss  s    p   t      s___________________________________________s $$$$$ f    _______   
-___________________________________________________________________________________________________________________________
-___________________________________________________________________________________________________________________________`,
+`llllllllllll                                $$$$$$$$$$$$$$                $                            f                                              
+llllllll                                    llllllllllllll                $                            f     tt tt                                   
+llll                                                                      $                            f   lllllllll                               
+ll                                                                        t                            f   lsssssssl                                 
+l                                                                      slllls$                         f   s       s                                
+                    $$$$$$                      t                    slllllllllls$                     f   s       s                                
+                  slllllll                      l                 sllllllllllllllllls$                 f   s       s                                
+               sllllllll    $                              $$ sllllllllllllllllllllllllls$             f   lsssssssl                                   
+           sllllllllllll     $          b            $$  sllllllllllllllllllllllllllllllllls$          f   lllllllll                            
+       sllllllllllllllllssss   ss  s    p   t      sllllllllllllllllllllllllllllllllllllllllllls $$$$$ f    lllllll   
+lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll
+lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll`,
 
 `                                h      h                                 q q q q q q q   $$$$$$$$$$$   f
                                 q$$$$$$q  $$s$$s$$s$$ss$$s               q q q qgqgqgq   $$$$$$$$$$$   f
                       $         qggggggq  gggggggggggggggg               q q qgq q q q   ggsggggssgg   f
                    $  h  $$     q      q                                 q qgq q q q q                 f
                 $  h  q  $$     q$$$$$$q  $                              q q qgq q q q                 f
-             $  h  q  q  __     qggggggq  h$                             q q q qgq q q                 f
+             $  h  q  q  ll     qggggggq  h$                             q q q qgq q q                 f
           $  h  q  q  q         q      q  qh$            $  $  $  t      q q qgq q q q                 f
        $  h  q  q  q  q         q$$$$$$q  qqh$           h  h  h  h      q qgq q q q q                 f
     $  h  q  q  q  q  q      b  qggggggq  qqqh$         hq  q  q  q      qgq q q q q q                 f
@@ -121,27 +118,27 @@ dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 
 `                                                      $$$$$$$$$$$$                                    f
                                          t            $$$$$$$$$$$$                sssss               f
-                                                t     ____________                $$$$$               f
+                                                t     llllllllllll                $$$$$               f
                                      t                                           $     $              f
-                                t                                               $ __ __ $             f
+                                t                                               $ ll ll $             f
                            t                                                    $       $             f
-                       t                                                        $ _   _ $             f
-             $$                    $$$$$$                        ___ ___        $  ___  $             f
+                       t                                                        $ l   l $             f
+             $$                    $$$$$$                        lll lll        $  lll  $             f
             $  $     t       $$  sgggggggggs   $$            b                 s $     $ s            f
-           t    t    $$$  sgggggggdddddddddggggggggggggs     p   ss   ss      _   $$$$$   _           f
+           t    t    $$$  sgggggggdddddddddggggggggggggs     p   ss   ss      l   $$$$$   l           f
 gggggggggggg    gggggggggggddddddddddddddddddddddddddddgggggggggggs   sggggggggggggggggggggggggggggggggggggggggggggg
-dddddddddddd    ddddddddddd____________________________ddddddddddds   sddddddddddddddddddddddddddddddddddddddddddddd`,
+dddddddddddd    dddddddddddllllllllllllllllllllllllllllddddddddddds   sddddddddddddddddddddddddddddddddddddddddddddd`,
 
 `                        $$$$$$                                                                                                                                                                  f
                         $$$$$$                                                                                                                                                                  f
-                        ______                                                                                                                                                                  f
+                        llllll                                                                                                                                                                  f
                                                                                                                                                           $$$$$$$$$$$$$$$$$                     f
-            ______                                                                                                 $$$$                                $$$$$$$$$$$$$$$$$$$$$$                   f
-                                                                                                                  ______                              $$$$$$$     _    $$$$$$$                  f
+            llllll                                                                                                 $$$$                                $$$$$$$$$$$$$$$$$$$$$$                   f
+                                                                                                                  llllll                              $$$$$$$     l    $$$$$$$                  f
                                                                                           $$$$$$               $                                     $$$$$                $$$$$                 f
-                             s                                                            ______               _                                    $$$$$   _           _  $$$$$   _____        f
-                        ______                                                                           $$$                                       $$$                       $$$$               f
-            ______                                     $ $ $ $ $ $ $ $ $ $   ____                      _______                                    $$   _                      _$$$              f
-______                                    ____________ _ _ _ _ _ _ _ _ _ _                                                            $$         $                               $$             f
-                                                                                                                                    ______       _                                 $            f`
+                             s                                                            llllll               l                                    $$$$$   l           l  $$$$$   lllll        f
+                        llllll                                                                           $$$                                       $$$                       $$$$               f
+            llllll                                     $ $ $ $ $ $ $ $ $ $   llll                      lllllll                                    $$   l                      l$$$              f
+llllll                                    llllllllllll l l l l l l l l l l                                                            $$         $                               $$             f
+                                                                                                                                    llllll       l                                 $            f`
 ]
