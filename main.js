@@ -280,7 +280,6 @@ function gameLoop() {
         }
     } else if (state == STATE_LEVEL_SELECT) {
         if (tick <= 1000 / FPS) {
-            console.log("hello there")
             document.cookie = JSON.stringify({"coins": coins, "shop": shop, "levels": levels})
         }
         ctx.drawImage(cache.levelselect, 0, 0);
