@@ -19,14 +19,7 @@ var keys = {
 var mouseDown = false;
 var lastClick = [0, 0]
 
-var levels = [
-    {"locked":false,"checkpoint":[0,320],"selectRect":[51,107,121,116],"background":cache.background},
-    {"locked":true,"checkpoint":[0,320],"selectRect":[231,107,121,116],"background":cache.background1},
-    {"locked":true,"checkpoint":[0,320],"selectRect":[419,107,121,116],"background":cache.background},
-    {"locked":true,"checkpoint":[0,320],"selectRect":[50,275,121,116],"background":cache.background},
-    {"locked":true,"checkpoint":[0,320],"selectRect":[232,278,121,116],"background":cache.background},
-    {"locked":true,"checkpoint":[0,320],"selectRect":[423,282,121,116],"background":cache.background2}
-]
+var levels;
 
 var shop = [
     {"name":"wig","price":10,"rect":[32,61,79,66],"bought":false},
@@ -43,9 +36,9 @@ const COMPLETE_FONT = "50px Arial";
 
 var coins = 0;
 var level = 0;
-var checkpoint = levels[level]["checkpoint"];
-var levelImage = new LevelImage(ctx, 1);
-var cyclist = new Cyclist(ctx, levelImage, checkpoint);
+var checkpoint;
+var levelImage;
+var cyclist;
 var multiplier = 1;
 var tick = 0;
 
@@ -80,11 +73,11 @@ function buy(item) {
             }
         } else {
             ctx.font = COIN_FONT;
-            ctx.fillText("You don't have enough coins for item " + item.name + "!", 250, 440);
+            ctx.fillText("You don't have enough coins for item " + item.name + "!", 250, 460);
         }
     } else {
         ctx.font = COIN_FONT;
-        ctx.fillText("Item " + item.name + " is already bought!", 250, 440);
+        ctx.fillText("Item " + item.name + " is already bought!", 250, 460);
     }
 }
 
@@ -141,8 +134,9 @@ window.onload = function() {
     });
     window.addEventListener("mousemove", function(e) {
         var rect = canvas.getBoundingClientRect();
-        var lastClick = [e.clientX - rect.left, e.clientY - rect.top];
+        lastClick = [e.clientX - rect.left, e.clientY - rect.top];
     });
+
     loadImages();
 }
 
@@ -155,6 +149,25 @@ function loadImages() {
     ImageManager.load(imageData, function() {
         cache = ImageManager.cache;
         document.body.removeChild(document.getElementById("progress"));
+        levels = [
+            {"locked":false,"checkpoint":[0,320],"selectRect":[51,107,121,116],"background": "background"},
+            {"locked":true,"checkpoint":[0,320],"selectRect":[231,107,121,116],"background": "background1"},
+            {"locked":true,"checkpoint":[0,320],"selectRect":[419,107,121,116],"background": "background"},
+            {"locked":true,"checkpoint":[0,320],"selectRect":[50,275,121,116],"background": "background"},
+            {"locked":true,"checkpoint":[0,320],"selectRect":[232,278,121,116],"background": "background"},
+            {"locked":false,"checkpoint":[0,320],"selectRect":[423,282,121,116],"background": "background2"}
+        ];
+        checkpoint = levels[level].checkpoint;
+        levelImage = new LevelImage(ctx, 1);
+        cyclist =  new Cyclist(ctx, levelImage, checkpoint);
+
+        if (document.cookie != "") {
+            var data = JSON.parse(document.cookie);
+            coins = data.coins;
+            shop = data.shop;
+            levels = data.levels;
+        }
+
         gameLoop();
     }, function(progress) {
         progressComplete.width = (progress / 100) * 640;
@@ -163,10 +176,11 @@ function loadImages() {
 }
 
 function gameLoop() {
+    
     ctx.clearRect(0, 0, 640, 480);
     if (state == STATE_FAIL) {
         ctx.drawImage(cache.failed, 0, 0);
-        if (tick == 0) {
+        if (tick <= 1000 / FPS) {
             coins -= 10;
             if (coins < 0) {
                 coins = 0;
@@ -187,8 +201,8 @@ function gameLoop() {
         if (tick > 1500) {
             setState(STATE_LEVEL_SELECT);
         }
-    } else if (STATE_COMPLETE_LEVEL) {
-        if (tick == 0) {
+    } else if (state == STATE_COMPLETE_LEVEL) {
+        if (tick <= 1000 / FPS) {
             if (level == 5) {
                 setState(STATE_GAME_OVER);
             } else if (level < 4) {
@@ -201,14 +215,15 @@ function gameLoop() {
         }
     } else if (state == STATE_GAME_OVER) {
         ctx.drawImage(cache.gameover, 0, 0);
+        document.cookie = "";
         if (tick > 1500) {
             window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
         }
     } else if (state == STATE_PLAY) {
-        ctx.drawImage(levels[level].background, 0, 0);
+        ctx.drawImage(cache[levels[level].background], 0, 0);
         levelImage.drawLevel(cyclist.x);
         ctx.font = COIN_FONT;
-        ctx.fillText("" + coins, 580, 5);
+        ctx.fillText("" + coins, 580, 20);
 
         var isChuting = keys.K_UP && shop[4].bought;
         var blocks = cyclist.update(isChuting);
@@ -242,14 +257,14 @@ function gameLoop() {
         if (keys.K_LEFT) {
             cyclist.accelerate(-1 * multiplier);
         } if (keys.K_RIGHT) {
-            cyclist.acclerate(multiplier);
+            cyclist.accelerate(multiplier);
         } if (keys.K_SPACE && !cyclist.isJumping) {
             cyclist.initJump();
         }
     } else if (state == STATE_SHOP) {
         ctx.drawImage(cache.clownshop, 0, 0);
         ctx.font = COIN_FONT;
-        ctx.fillText("" + coins, 287, 30);
+        ctx.fillText("" + coins, 287, 50);
         if (mouseDown) {
             if (lastClick[0] > 14 && lastClick[1] > 433 && lastClick[0] < 14 + 108 && lastClick[1] < 433 + 41) {
                 setState(STATE_LEVEL_SELECT);
@@ -264,6 +279,10 @@ function gameLoop() {
             }
         }
     } else if (state == STATE_LEVEL_SELECT) {
+        if (tick <= 1000 / FPS) {
+            console.log("hello there")
+            document.cookie = JSON.stringify({"coins": coins, "shop": shop, "levels": levels})
+        }
         ctx.drawImage(cache.levelselect, 0, 0);
         for (var i = 0; i < 6; i++) {
             var rect = levels[i].selectRect;
@@ -271,8 +290,8 @@ function gameLoop() {
                 ctx.drawImage(cache.lock, levels[i].selectRect[0] + 20, levels[i].selectRect[1] + 20);
             } if (mouseDown && lastClick[0] > rect[0] && lastClick[1] > rect[1] && lastClick[0] < rect[0] + rect[2] && lastClick[1] < rect[1] + rect[3]) {
                 if (levels[i].locked) {
-                    ctx.setFont(COIN_FONT);
-                    ctx.fillText("Level + " + (level + 1) + " is locked!", 400, 440);
+                    ctx.font = COIN_FONT;
+                    ctx.fillText("Level " + (i + 1) + " is locked!", 400, 440);
                 } else {
                     level = i;
                     reset();
@@ -287,7 +306,7 @@ function gameLoop() {
         }
     }
 
-    tick += FPS;
+    tick += 1000 / FPS;
     window.setTimeout(function() {
         gameLoop();
     }, 1000 / FPS)

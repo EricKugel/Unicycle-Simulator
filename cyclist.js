@@ -42,7 +42,7 @@ class Cyclist {
             } if (this.y + 80 > this.closestYUnder) {
                 this.ySpeed = 0;
                 this.isJumping = false;
-                this.y = self.closestYUnder - 80;
+                this.y = this.closestYUnder - 80;
             }
         }
 
@@ -53,8 +53,8 @@ class Cyclist {
 
         if (this.xSpeed > 0) {
             this.accelerate(-0.5);
-        } else if (self.xSpeed > 0) {
-            self.acclerate(0.5);
+        } else if (this.xSpeed < 0) {
+            this.accelerate(0.5);
         }
 
         var blocksTouching = this.levelImage.getInteractiveBlocksTouching([this.x + 50, this.y, 20, 81]);
@@ -74,8 +74,10 @@ class Cyclist {
         }
         if (!this.isJumping) {
             this.animationTick += this.xSpeed;
-        } if (this.animationTick >= 80 || self.animationTick <= -80) {
+        } if (this.animationTick >= 80) {
             this.animationTick = 0;
+        } if (this.animationTick < 0) {
+            this.animationTick += 80;
         }
 
         var image = this.animationImages[Math.floor(this.animationTick / 20)];
@@ -90,7 +92,7 @@ class Cyclist {
     accelerate(multiplier) {
         this.xSpeed += (ACCELERATION * multiplier);
         if (Math.abs(this.xSpeed) > this.topspeed) {
-            self.xSpeed -= (ACCELERATION * multiplier);
+            this.xSpeed -= (ACCELERATION * multiplier);
         }
     }
 
