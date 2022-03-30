@@ -17,6 +17,7 @@ var keys = {
 }
 
 var mouseDown = false;
+var touchDown = false;
 var lastClick = [0, 0]
 
 var levels;
@@ -137,6 +138,28 @@ window.onload = function() {
         lastClick = [e.clientX - rect.left, e.clientY - rect.top];
     });
 
+    window.addEventListener("touchstart", function(e) {
+        touchDown = true;
+        var x = e.touches[0].clientX;
+        var y = e.touches[0].clientY;
+        var rect = canvas.getBoundingClientRect();
+        lastClick = [x - rect.left, y - rect.top];
+    });
+
+    window.addEventListener("touchend", function(e) {
+        touchDown = false;
+    });
+
+    window.addEventListener("touchcancel", function(e) {
+        touchDown = false;
+    });
+
+    window.addEventListener("touchmove", function(e) {
+        var x = e.touches[0].clientX;
+        var y = e.touches[0].clientY;
+        lastClick = [x, y];
+    });
+    
     loadImages();
 }
 
@@ -192,7 +215,7 @@ function gameLoop() {
             } if (shop[3].bought) {
                 cyclist.setInitialJumpSpeed(-48);
             } if (level == 5) {
-                cyclist.setLowGravity;
+                cyclist.setLowGravity();
             }
             setState(STATE_PLAY);
         }
@@ -254,18 +277,30 @@ function gameLoop() {
             ctx.drawImage(cache.wig, 45, cyclist.y - 10);
         }
 
-        if (keys.K_LEFT) {
-            cyclist.accelerate(-1 * multiplier);
-        } if (keys.K_RIGHT) {
-            cyclist.accelerate(multiplier);
-        } if (keys.K_SPACE && !cyclist.isJumping) {
-            cyclist.initJump();
+        if (touchDown) {
+            if (lastClick[0] > 320) {
+                cyclist.accelerate(multiplier);
+            } else {
+                cyclist.accelerate(-1 * multiplier);
+            }
+
+            if (lastClick[1] < 240) {
+                cyclist.initJump();
+            }
+        } else {
+            if (keys.K_LEFT) {
+                cyclist.accelerate(-1 * multiplier);
+            } if (keys.K_RIGHT) {
+                cyclist.accelerate(multiplier);
+            } if (keys.K_SPACE && !cyclist.isJumping) {
+                cyclist.initJump();
+            }
         }
     } else if (state == STATE_SHOP) {
         ctx.drawImage(cache.clownshop, 0, 0);
         ctx.font = COIN_FONT;
         ctx.fillText("" + coins, 287, 50);
-        if (mouseDown) {
+        if ((mouseDown || touchDown)) {
             if (lastClick[0] > 14 && lastClick[1] > 433 && lastClick[0] < 14 + 108 && lastClick[1] < 433 + 41) {
                 setState(STATE_LEVEL_SELECT);
             } else {
@@ -287,7 +322,7 @@ function gameLoop() {
             var rect = levels[i].selectRect;
             if (levels[i].locked) {
                 ctx.drawImage(cache.lock, levels[i].selectRect[0] + 20, levels[i].selectRect[1] + 20);
-            } if (mouseDown && lastClick[0] > rect[0] && lastClick[1] > rect[1] && lastClick[0] < rect[0] + rect[2] && lastClick[1] < rect[1] + rect[3]) {
+            } if ((mouseDown || touchDown) && lastClick[0] > rect[0] && lastClick[1] > rect[1] && lastClick[0] < rect[0] + rect[2] && lastClick[1] < rect[1] + rect[3]) {
                 if (levels[i].locked) {
                     ctx.font = COIN_FONT;
                     ctx.fillText("Level " + (i + 1) + " is locked!", 400, 440);
