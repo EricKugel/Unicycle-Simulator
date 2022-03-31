@@ -155,7 +155,7 @@ window.onload = function() {
             var x = e.touches[i].clientX;
             var y = e.touches[i].clientY;
             if (x > helpRect.left && y > helpRect.top && x < helpRect.left + helpRect.width && y < helpRect.top + helpRect.height) {
-                this.document.getElementById("help").click();
+                window.open("help.html", "_blank");
             } else {
                 lastClicks.push([x - rect.left, y - rect.top]);
             }
