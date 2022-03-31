@@ -218,13 +218,6 @@ function loadImages() {
         levelImage = new LevelImage(ctx, 1);
         cyclist =  new Cyclist(ctx, levelImage, checkpoint);
 
-        if (document.cookie != "") {
-            var data = JSON.parse(document.cookie);
-            coins = data.coins;
-            shop = data.shop;
-            levels = data.levels;
-        }
-
         gameLoop();
     }, function(progress) {
         progressComplete.width = (progress / 100) * 640;
@@ -272,7 +265,6 @@ function gameLoop() {
         }
     } else if (state == STATE_GAME_OVER) {
         ctx.drawImage(cache.gameover, 0, 0);
-        document.cookie = "";
         if (tick > 1500) {
             window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
         }
@@ -358,9 +350,6 @@ function gameLoop() {
             }
         }
     } else if (state == STATE_LEVEL_SELECT) {
-        if (tick <= 1000 / FPS) {
-            document.cookie = JSON.stringify({"coins": coins, "shop": shop, "levels": levels})
-        }
         ctx.drawImage(cache.levelselect, 0, 0);
         for (var i = 0; i < 6; i++) {
             var rect = levels[i].selectRect;
