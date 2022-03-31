@@ -83,7 +83,7 @@ class Cyclist {
         var image = this.animationImages[Math.floor(this.animationTick / 20)];
         this.ctx.drawImage(image, 40, this.y);
         if (this.isChuting && this.ySpeed > 0) {
-            this.ctx.drawImage(cache.parachute, 10, this.y - 20);
+            this.ctx.drawImage(cache.chute, 10, this.y - 20);
         }
 
         return blocks;

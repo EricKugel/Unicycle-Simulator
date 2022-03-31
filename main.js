@@ -278,7 +278,7 @@ function gameLoop() {
         if (!isChuting && shop[4].bought && touchDown) {
             for (var i = 0; i < lastClicks.length; i++) {
                 if (lastClicks[i][0] < 320 && lastClicks[i][1] < 240) {
-                    touchDown = true;
+                    isChuting = true;
                     break;
                 }
             }
@@ -339,8 +339,8 @@ function gameLoop() {
                 if (lastClicks[i][0] > 14 && lastClicks[i][1] > 433 && lastClicks[i][0] < 14 + 108 && lastClicks[i][1] < 433 + 41) {
                     setState(STATE_LEVEL_SELECT);
                 } else {
-                    for (var i = 0; i < shop.length; i++) {
-                        var item = shop[i];
+                    for (var j = 0; j < shop.length; j++) {
+                        var item = shop[j];
                         var rect = item.rect;
                         if (lastClicks[i][0] > rect[0] && lastClicks[i][1] > rect[1] && lastClicks[i][0] < rect[0] + rect[2] && lastClicks[i][1] < rect[1] + rect[3]) {
                             buy(item);
