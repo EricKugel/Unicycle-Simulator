@@ -1,9 +1,14 @@
 # Welcome to Unicycle Simulator!
 
-### Controls
+### Controls: Computer
 - Right arrow/D, Left arrow/a: Accelerate right, left
 - Space: jump
 - Up arrow/w: If parachute is bought, deploy chute
+### Controls: Mobile
+- Lower right corner: Move forward
+- Lower left corner: Move backward
+- Upper right corner: Jump
+- Upper left corner: Deploy parachute, if bought
 
 ### Coins
 Thoughout the level, collect coins (gilded juggling balls) to spend in the shop between levels.
@@ -19,5 +24,7 @@ There are several blocks with certain properties.
 ### Game
 Win by getting enough coins to buy level 6, and then beat level 6.
 
-### Note
-There are several test lines above the game loop in main.py. These turn on purchases and unlock levels. Try out the parachute and level 6!
+
+### About
+This game was created by the amateur unicyclist Eric Kugel. It was originally created in python. Check out the code [here](https://github.com/EricKugel/Unicycle-Simulator).  
+Unicycle Simulator 2 sometime???

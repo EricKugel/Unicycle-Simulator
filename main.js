@@ -273,6 +273,14 @@ function gameLoop() {
         ctx.fillText("" + coins, 580, 20);
 
         var isChuting = keys.K_UP && shop[4].bought;
+        if (!isChuting && shop[4].bought && touchDown) {
+            for (var i = 0; i < lastClicks.length; i++) {
+                if (lastClicks[i][0] < 320 && lastClicks[i][1] < 240) {
+                    touchDown = true;
+                    break;
+                }
+            }
+        }
         var blocks = cyclist.update(isChuting);
 
         if (cyclist.y >= 400) {
@@ -307,7 +315,7 @@ function gameLoop() {
                     cyclist.accelerate(multiplier);
                 } else if (lastClicks[i][0] < 320 && lastClicks[i][1] > 240) {
                     cyclist.accelerate(-1 * multiplier);
-                } if (lastClicks[i][1] < 240 && !cyclist.isJumping) {
+                } if (lastClicks[i][0] < 320 && lastClicks[i][1] < 240 && !cyclist.isJumping) {
                     cyclist.initJump();
                 }
             } 
