@@ -97,10 +97,10 @@ function reset() {
 
 function updateLastClicks(e) {
     lastClicks = [];
+    var rect = canvas.getBoundingClientRect();
     for (var i = 0; i < e.touches.length; i++) {
         var x = e.touches[i].clientX;
         var y = e.touches[i].clientY;
-        var rect = canvas.getBoundingClientRect();
         lastClicks.push([x - rect.left, y - rect.top]);
     }
 }
@@ -144,16 +144,24 @@ window.onload = function() {
     }); window.addEventListener("mousemove", function(e) {
         var rect = canvas.getBoundingClientRect();
         lastClicks = [[e.clientX - rect.left, e.clientY - rect.top]];
-    }, {
-        passive: false
     });
 
     window.addEventListener("touchstart", function(e) {
         e.preventDefault();
+        var helpRect = document.getElementById("help").getBoundingClientRect();
+        var rect = canvas.getBoundingClientRect();
         touchDown = true;
-        updateLastClicks(e);
+        for (var i = 0; i < e.touches.length; i++) {
+            var x = e.touches[i].clientX;
+            var y = e.touches[i].clientY;
+            if (x > helpRect.left && y > helpRect.top && x < helpRect.left + helpRect.width && y < helpRect.top + helpRect.height) {
+                this.document.getElementById("help").click();
+            } else {
+                lastClicks.push([x - rect.left, y - rect.top]);
+            }
+        }
     }, {
-        passive: false
+        "passive": false
     });
 
     window.addEventListener("touchend", function(e) {
@@ -163,17 +171,14 @@ window.onload = function() {
             touchDown = false;
         }
     }, {
-        passive: false
+        "passive": false
     });
 
     window.addEventListener("touchcancel", function(e) {
-        e.preventDefault();
         updateLastClicks(e);
         if (lastClicks.length == 0) {
             touchDown = false;
         }
-    }, {
-        passive: false
     });
 
     window.addEventListener("touchmove", function(e) {
@@ -181,8 +186,13 @@ window.onload = function() {
         touchDown = true;
         updateLastClicks(e);
     }, {
-        passive: false
+        "passive": false
     });
+
+    document.getElementById("help").onclick = function() {
+        console.log("help!")
+        document.getElementById("help").click();
+    }
     
     loadImages();
 }
