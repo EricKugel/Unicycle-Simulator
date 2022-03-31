@@ -18,7 +18,7 @@ var keys = {
 
 var mouseDown = false;
 var touchDown = false;
-var lastClick = [0, 0]
+var lastClicks = [[0, 0]]
 
 var levels;
 
@@ -95,6 +95,16 @@ function reset() {
     }
 }
 
+function updateLastClicks(e) {
+    lastClicks = [];
+    for (var i = 0; i < e.touches.length; i++) {
+        var x = e.touches[i].clientX;
+        var y = e.touches[i].clientY;
+        var rect = canvas.getBoundingClientRect();
+        lastClicks.push([x - rect.left, y - rect.top]);
+    }
+}
+
 window.onload = function() {
     canvas = document.getElementById("canvas");
     ctx = canvas.getContext("2d");
@@ -129,35 +139,49 @@ window.onload = function() {
 
     window.addEventListener("mousedown", function(e) {
         mouseDown = true;
-    });
-    window.addEventListener("mouseup", function(e) {
+    }); window.addEventListener("mouseup", function(e) {
         mouseDown = false;
-    });
-    window.addEventListener("mousemove", function(e) {
+    }); window.addEventListener("mousemove", function(e) {
         var rect = canvas.getBoundingClientRect();
-        lastClick = [e.clientX - rect.left, e.clientY - rect.top];
+        lastClicks = [[e.clientX - rect.left, e.clientY - rect.top]];
+    }, {
+        passive: false
     });
 
     window.addEventListener("touchstart", function(e) {
+        e.preventDefault();
         touchDown = true;
-        var x = e.touches[0].clientX;
-        var y = e.touches[0].clientY;
-        var rect = canvas.getBoundingClientRect();
-        lastClick = [x - rect.left, y - rect.top];
+        updateLastClicks(e);
+    }, {
+        passive: false
     });
 
     window.addEventListener("touchend", function(e) {
-        touchDown = false;
+        e.preventDefault();
+        updateLastClicks(e);
+        if (lastClicks.length == 0) {
+            touchDown = false;
+        }
+    }, {
+        passive: false
     });
 
     window.addEventListener("touchcancel", function(e) {
-        touchDown = false;
+        e.preventDefault();
+        updateLastClicks(e);
+        if (lastClicks.length == 0) {
+            touchDown = false;
+        }
+    }, {
+        passive: false
     });
 
     window.addEventListener("touchmove", function(e) {
-        var x = e.touches[0].clientX;
-        var y = e.touches[0].clientY;
-        lastClick = [x, y];
+        e.preventDefault();
+        touchDown = true;
+        updateLastClicks(e);
+    }, {
+        passive: false
     });
     
     loadImages();
@@ -278,15 +302,15 @@ function gameLoop() {
         }
 
         if (touchDown) {
-            if (lastClick[0] > 320) {
-                cyclist.accelerate(multiplier);
-            } else {
-                cyclist.accelerate(-1 * multiplier);
-            }
-
-            if (lastClick[1] < 240) {
-                cyclist.initJump();
-            }
+            for (var i = 0; i < lastClicks.length; i++) {
+                if (lastClicks[i][0] > 320 && lastClicks[i][1] > 240) {
+                    cyclist.accelerate(multiplier);
+                } else if (lastClicks[i][0] < 320 && lastClicks[i][1] > 240) {
+                    cyclist.accelerate(-1 * multiplier);
+                } if (lastClicks[i][1] < 240 && !cyclist.isJumping) {
+                    cyclist.initJump();
+                }
+            } 
         } else {
             if (keys.K_LEFT) {
                 cyclist.accelerate(-1 * multiplier);
@@ -301,14 +325,16 @@ function gameLoop() {
         ctx.font = COIN_FONT;
         ctx.fillText("" + coins, 287, 50);
         if ((mouseDown || touchDown)) {
-            if (lastClick[0] > 14 && lastClick[1] > 433 && lastClick[0] < 14 + 108 && lastClick[1] < 433 + 41) {
-                setState(STATE_LEVEL_SELECT);
-            } else {
-                for (var i = 0; i < shop.length; i++) {
-                    var item = shop[i];
-                    var rect = item.rect;
-                    if (lastClick[0] > rect[0] && lastClick[1] > rect[1] && lastClick[0] < rect[0] + rect[2] && lastClick[1] < rect[1] + rect[3]) {
-                        buy(item);
+            for (var i = 0; i < lastClicks.length; i++) {
+                if (lastClicks[i][0] > 14 && lastClicks[i][1] > 433 && lastClicks[i][0] < 14 + 108 && lastClicks[i][1] < 433 + 41) {
+                    setState(STATE_LEVEL_SELECT);
+                } else {
+                    for (var i = 0; i < shop.length; i++) {
+                        var item = shop[i];
+                        var rect = item.rect;
+                        if (lastClicks[i][0] > rect[0] && lastClicks[i][1] > rect[1] && lastClicks[i][0] < rect[0] + rect[2] && lastClicks[i][1] < rect[1] + rect[3]) {
+                            buy(item);
+                        }
                     }
                 }
             }
@@ -322,19 +348,25 @@ function gameLoop() {
             var rect = levels[i].selectRect;
             if (levels[i].locked) {
                 ctx.drawImage(cache.lock, levels[i].selectRect[0] + 20, levels[i].selectRect[1] + 20);
-            } if ((mouseDown || touchDown) && lastClick[0] > rect[0] && lastClick[1] > rect[1] && lastClick[0] < rect[0] + rect[2] && lastClick[1] < rect[1] + rect[3]) {
-                if (levels[i].locked) {
-                    ctx.font = COIN_FONT;
-                    ctx.fillText("Level " + (i + 1) + " is locked!", 400, 440);
-                } else {
-                    level = i;
-                    reset();
-                    setState(STATE_PLAY);
-                }
-            } else {
-                rect = [202,419,190,50];
-                if (mouseDown && lastClick[0] > rect[0] && lastClick[1] > rect[1] && lastClick[0] < rect[0] + rect[2] && lastClick[1] < rect[1] + rect[3]) {
-                    setState(STATE_SHOP);
+            } 
+            
+            if (mouseDown || touchDown) {
+                for (var j = 0; j < lastClicks.length; j++) {
+                    if (lastClicks[j][0] > rect[0] && lastClicks[j][1] > rect[1] && lastClicks[j][0] < rect[0] + rect[2] && lastClicks[j][1] < rect[1] + rect[3]) {
+                        if (levels[i].locked) {
+                            ctx.font = COIN_FONT;
+                            ctx.fillText("Level " + (i + 1) + " is locked!", 400, 440);
+                        } else {
+                            level = i;
+                            reset();
+                            setState(STATE_PLAY);
+                        }
+                    }
+                    
+                    rect = [202,419,190,50];
+                    if (lastClicks[j][0] > rect[0] && lastClicks[j][1] > rect[1] && lastClicks[j][0] < rect[0] + rect[2] && lastClicks[j][1] < rect[1] + rect[3]) {
+                        setState(STATE_SHOP);
+                    }
                 }
             }
         }
