@@ -315,7 +315,7 @@ function gameLoop() {
                     cyclist.accelerate(multiplier);
                 } else if (lastClicks[i][0] < 320 && lastClicks[i][1] > 240) {
                     cyclist.accelerate(-1 * multiplier);
-                } if (lastClicks[i][0] < 320 && lastClicks[i][1] < 240 && !cyclist.isJumping) {
+                } if (lastClicks[i][1] < 240 && !cyclist.isJumping && (!cyclist.isChuting || lastClicks[i][0] > 320)) {
                     cyclist.initJump();
                 }
             } 
