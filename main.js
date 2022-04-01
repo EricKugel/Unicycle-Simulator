@@ -149,13 +149,16 @@ window.onload = function() {
     window.addEventListener("touchstart", function(e) {
         e.preventDefault();
         var helpRect = document.getElementById("help").getBoundingClientRect();
+        var closeRect = document.getElementById("close").getBoundingClientRect();
         var rect = canvas.getBoundingClientRect();
         touchDown = true;
         for (var i = 0; i < e.touches.length; i++) {
             var x = e.touches[i].clientX;
             var y = e.touches[i].clientY;
             if (x > helpRect.left && y > helpRect.top && x < helpRect.left + helpRect.width && y < helpRect.top + helpRect.height) {
-                window.open("help.html", "_blank");
+                this.document.getElementById("popup").className = "show";
+            } else if (x > closeRect.left && y > closeRect.top && x < closeRect.left + closeRect.width && y < closeRect.top + closeRect.height) {
+                this.document.getElementById("popup").className = "hide";
             } else {
                 lastClicks.push([x - rect.left, y - rect.top]);
             }
