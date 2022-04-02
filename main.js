@@ -91,7 +91,7 @@ function reset() {
     } if (shop[3].bought) {
         cyclist.setInitialJumpSpeed(-48);
     } if (level == 5) {
-        cyclist.setLowGravityl
+        cyclist.setLowGravity();
     }
 }
 
@@ -269,7 +269,7 @@ function gameLoop() {
     } else if (state == STATE_GAME_OVER) {
         ctx.drawImage(cache.gameover, 0, 0);
         if (tick > 1500) {
-            window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+            window.location.replace("https://www.youtube.com/watch?v=xvFZjo5PgG0");
         }
     } else if (state == STATE_PLAY) {
         ctx.drawImage(cache[levels[level].background], 0, 0);
