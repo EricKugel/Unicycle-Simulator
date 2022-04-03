@@ -215,7 +215,7 @@ function loadImages() {
             {"locked":true,"checkpoint":[0,320],"selectRect":[419,107,121,116],"background": "background"},
             {"locked":true,"checkpoint":[0,320],"selectRect":[50,275,121,116],"background": "background"},
             {"locked":true,"checkpoint":[0,320],"selectRect":[232,278,121,116],"background": "background"},
-            {"locked":false,"checkpoint":[0,320],"selectRect":[423,282,121,116],"background": "background2"}
+            {"locked":true,"checkpoint":[0,320],"selectRect":[423,282,121,116],"background": "background2"}
         ];
         checkpoint = levels[level].checkpoint;
         levelImage = new LevelImage(ctx, 1);
