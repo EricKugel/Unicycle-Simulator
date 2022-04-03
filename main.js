@@ -215,7 +215,7 @@ function loadImages() {
             {"locked":true,"checkpoint":[0,320],"selectRect":[419,107,121,116],"background": "background"},
             {"locked":true,"checkpoint":[0,320],"selectRect":[50,275,121,116],"background": "background"},
             {"locked":true,"checkpoint":[0,320],"selectRect":[232,278,121,116],"background": "background"},
-            {"locked":true,"checkpoint":[0,320],"selectRect":[423,282,121,116],"background": "background2"}
+            {"locked":false,"checkpoint":[0,320],"selectRect":[423,282,121,116],"background": "background2"}
         ];
         checkpoint = levels[level].checkpoint;
         levelImage = new LevelImage(ctx, 1);
@@ -228,8 +228,8 @@ function loadImages() {
     });
 }
 
+var gameOver = false;
 function gameLoop() {
-    
     ctx.clearRect(0, 0, 640, 480);
     if (state == STATE_FAIL) {
         ctx.drawImage(cache.failed, 0, 0);
@@ -267,9 +267,17 @@ function gameLoop() {
             setState(STATE_LEVEL_SELECT);
         }
     } else if (state == STATE_GAME_OVER) {
-        ctx.drawImage(cache.gameover, 0, 0);
-        if (tick > 1500) {
-            window.location.replace("https://www.youtube.com/watch?v=xvFZjo5PgG0");
+        if (tick < 1500) {
+            ctx.drawImage(cache.gameover, 0, 0);
+        } else {
+            var video = document.createElement("video");
+            document.body.innerHTML = "";
+            document.body.appendChild(video);
+            video.src = "rick.mp4"
+            video.width = screen.width;
+            video.height = screen.height;
+            video.play();
+            gameOver = true;
         }
     } else if (state == STATE_PLAY) {
         ctx.drawImage(cache[levels[level].background], 0, 0);
@@ -382,8 +390,10 @@ function gameLoop() {
         }
     }
 
-    tick += 1000 / FPS;
-    window.setTimeout(function() {
-        gameLoop();
-    }, 1000 / FPS)
+    if (!gameOver) {
+        tick += 1000 / FPS;
+        window.setTimeout(function() {
+            gameLoop();
+        }, 1000 / FPS)
+    }
 }
