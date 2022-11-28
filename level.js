@@ -90,20 +90,6 @@ dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 lllllllllllllllllllllllllllllllllllllllls $$$$$$$$$$$$$$  sllllllllllllllllllllllllllllllllllllllllllll
 lllllllllllllllllllllllllllllllllllllllllllllllsllllllsllllllllllllllllllllllllllllllllllllllllllllllll`,
 
-`                           
-$       l$        $        $
- $     l$ $      $ $      $ 
-  $   l$   $    $   $    $  
-   $ l$     $  $     $  $   
-    $$       $$       $$    
-   l$$       $$       $$    
-  l$  $     $  $     $  $   
- l$    $   $    $   $    $  
- $      $ $      $ $      $ 
-$        $        $        $
-gggggggggggggggggggggggggggg`,
-
-
 `llllllllllll                                $$$$$$$$$$$$$$                $                            f                                              
 llllllll                                    llllllllllllll                $                            f     tt tt                                   
 llll                                                                      $                            f   lllllllll                               
