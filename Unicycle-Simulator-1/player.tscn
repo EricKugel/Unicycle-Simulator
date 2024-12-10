@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://m8b2yl28c7j3"]
+
+[ext_resource type="Texture2D" uid="uid://bacanh0741djf" path="res://lib/spriteImages/cyclist0.png" id="1_7w0aj"]
+[ext_resource type="Script" path="res://player.gd" id="1_mie7x"]
+[ext_resource type="Texture2D" uid="uid://cgaxf41roqwid" path="res://lib/spriteImages/cyclist1.png" id="2_h5ggu"]
+[ext_resource type="Texture2D" uid="uid://c1wn2v5a060fm" path="res://lib/spriteImages/cyclist2.png" id="3_jowjw"]
+[ext_resource type="Texture2D" uid="uid://ds1gjmbcyqu8p" path="res://lib/spriteImages/cyclist3.png" id="4_ae5rt"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xnhbe"]
+radius = 12.0
+height = 74.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3vpxg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_7w0aj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_h5ggu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jowjw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ae5rt")
+}],
+"loop": true,
+"name": &"cycle",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 32
+collision_mask = 95
+floor_stop_on_slope = false
+floor_max_angle = 1.54636
+script = ExtResource("1_mie7x")
+max_speed = 300
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(1, -37)
+shape = SubResource("CapsuleShape2D_xnhbe")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 95
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1, -37)
+shape = SubResource("CapsuleShape2D_xnhbe")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -40)
+sprite_frames = SubResource("SpriteFrames_3vpxg")
+animation = &"cycle"
+frame = 2
+frame_progress = 0.465533

@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://gk2kaw2q1jj0"]
+
+[ext_resource type="Texture2D" uid="uid://bcqsf25ybmuut" path="res://lib/blockImages/h.png" id="1_b5j32"]
+
+[node name="HThing" type="RigidBody2D" groups=["block"]]
+collision_mask = 32
+gravity_scale = 0.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_b5j32")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-17, -11, -14, -17, 10, -17, 16, -12, 16, 20, -17, 20)
+one_way_collision = true

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsfcx23k4j47x"]
+
+[ext_resource type="Texture2D" uid="uid://dgvqfxq7w4vo2" path="res://lib/blockImages/p.png" id="1_anu1r"]
+
+[node name="Pole" type="Area2D" groups=["block"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_anu1r")

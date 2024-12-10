@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bk8qnhuhvmu57"]
+
+[ext_resource type="Texture2D" uid="uid://bjsomf00j8hgw" path="res://lib/blockImages/r.png" id="1_bbl3h"]
+
+[node name="RedBanner" type="Area2D"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="." groups=["block"]]
+texture = ExtResource("1_bbl3h")

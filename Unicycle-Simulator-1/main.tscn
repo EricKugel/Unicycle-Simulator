@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=3 uid="uid://btpmjsk233yv8"]
+
+[ext_resource type="PackedScene" uid="uid://m8b2yl28c7j3" path="res://player.tscn" id="1_8bpr1"]
+[ext_resource type="Script" path="res://main.gd" id="1_gtwxc"]
+[ext_resource type="Texture2D" uid="uid://i4y6bepdeby0" path="res://lib/images/wig.png" id="3_hvy6b"]
+[ext_resource type="Texture2D" uid="uid://dby1f0lerefrt" path="res://lib/images/chute.png" id="4_o5ilq"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_gtwxc")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Background" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(320, 240)
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 592.0
+offset_top = 5.0
+offset_right = 632.0
+offset_bottom = 28.0
+text = "0"
+metadata/_edit_use_anchors_ = true
+
+[node name="Player" parent="." instance=ExtResource("1_8bpr1")]
+z_index = 1
+position = Vector2(288, 306)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+limit_left = 0
+limit_bottom = 480
+
+[node name="nose" type="Polygon2D" parent="Player"]
+visible = false
+position = Vector2(71, -50)
+scale = Vector2(0.6, 0.545455)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(-98, -43, -103, -40, -101, -37, -102, -34, -97, -32, -94, -34, -93, -38, -95, -42)
+
+[node name="wig" type="TextureRect" parent="Player"]
+visible = false
+offset_left = -10.0
+offset_top = -90.0
+offset_right = 31.0
+offset_bottom = -71.0
+texture = ExtResource("3_hvy6b")
+expand_mode = 1
+
+[node name="parachute" type="TextureRect" parent="Player"]
+visible = false
+offset_left = -51.0
+offset_top = -95.0
+offset_right = 38.0
+offset_bottom = -52.0
+texture = ExtResource("4_o5ilq")
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(67, 259)
+
+[connection signal="hit" from="Player" to="." method="_on_player_hit"]

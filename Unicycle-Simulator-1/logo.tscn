@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://do67j7veti3mh"]
+
+[ext_resource type="Texture2D" uid="uid://cp2f0b2yr57la" path="res://lib/images/logo.png" id="1_k07hl"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_muswj"]
+font_size = 80
+font_color = Color(0, 0, 0, 1)
+
+[node name="logo" type="CanvasLayer"]
+layer = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_k07hl")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 566.0
+offset_top = 116.0
+offset_right = 621.0
+offset_bottom = 248.0
+text = "1"
+label_settings = SubResource("LabelSettings_muswj")

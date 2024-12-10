@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bq6dxb2x3biin"]
+
+[ext_resource type="Texture2D" uid="uid://dec0dipeo8ri7" path="res://lib/blockImages/b.png" id="1_sspk5"]
+
+[node name="Banner" type="Area2D" groups=["banner", "block"]]
+collision_layer = 64
+collision_mask = 32
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_sspk5")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-14, -4, 9, -13, 7, -15, 8, -17, 13, -17, 15, -15, 13, -12, 13, 20, 9, 20, 9, 6)

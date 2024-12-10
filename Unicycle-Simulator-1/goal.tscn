@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://8r8fmynuairy"]
+
+[ext_resource type="Texture2D" uid="uid://uwhini51gwbg" path="res://lib/blockImages/f.png" id="1_4d3sy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0hxi0"]
+size = Vector2(40, 40)
+
+[node name="Goal" type="Area2D" groups=["goal"]]
+collision_layer = 4
+collision_mask = 32
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_4d3sy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["goal"]]
+shape = SubResource("RectangleShape2D_0hxi0")

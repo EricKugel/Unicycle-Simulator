@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://uvx5secx7372"]
+
+[ext_resource type="Texture2D" uid="uid://csbowcbogigi5" path="res://lib/images/complete.png" id="1_2lr1p"]
+
+[node name="yay" type="CanvasLayer"]
+layer = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_2lr1p")

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbfvhluvtft4n"]
+
+[ext_resource type="Texture2D" uid="uid://bla8uvj8f7284" path="res://lib/blockImages/t.png" id="1_ptu78"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_10pul"]
+size = Vector2(39, 41)
+
+[node name="Trampoline" type="Area2D" groups=["block", "trampoline"]]
+collision_layer = 8
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ptu78")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_10pul")

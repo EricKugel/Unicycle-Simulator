@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmwxey0i1mae6"]
+
+[ext_resource type="Texture2D" uid="uid://bjpxi858waw61" path="res://lib/blockImages/q.png" id="1_beih6"]
+
+[node name="QThing" type="Area2D" groups=["block"]]
+collision_layer = 0
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_beih6")
