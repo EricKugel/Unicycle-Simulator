@@ -16,6 +16,8 @@ var animation_pos = 0
 var screen_size
 var gravity
 
+var mice = [false, false, false]
+
 func _ready() -> void:
 	hide()
 	screen_size = get_viewport_rect().size
@@ -26,15 +28,40 @@ func _ready() -> void:
 	
 func set_gravity(new_gravity):
 	gravity = new_gravity
+	
+	
+func _input(event):
+	if event is InputEventScreenTouch:
+		var i = -1
+		if event.position.y < $"..".get_viewport_rect().size.y / 2:
+			i = 0
+		elif event.position.x < $"..".get_viewport_rect().size.x / 2:
+			i = 1
+		else:
+			i = 2
+		if i != -1:
+			mice[i] = event.is_pressed()
+	
+func is_jump_pressed():
+	return (Input.is_action_pressed("jump") or mice[0])
 
+func is_jump_just_pressed():
+	return (Input.is_action_just_pressed("jump") or mice[0])
+	
+func is_right_pressed():
+	return (Input.is_action_pressed("move_right") or mice[2])
+	
+func is_left_pressed():
+	return (Input.is_action_pressed("move_left") or mice[1])
+	
 func _physics_process(delta: float) -> void:
 	if ($"..".idle):
 		move_and_slide()
 		return
 	
-	if Input.is_action_pressed("move_right"):
+	if is_right_pressed():
 		velocity.x += 30
-	elif Input.is_action_pressed("move_left"):
+	elif is_left_pressed():
 		velocity.x -= 30
 	else:
 		velocity.x *= 0.96
@@ -47,11 +74,11 @@ func _physics_process(delta: float) -> void:
 	$parachute.hide()
 	if !is_on_floor():
 		velocity.y += gravity;
-		if velocity.y > 125 and parachute and $"..".level != 6 and Input.is_action_pressed("jump"):
+		if velocity.y > 125 and parachute and $"..".level != 6 and is_jump_pressed():
 			velocity.y = 125
 			$parachute.show()
 			
-	if is_on_floor() && Input.is_action_just_pressed("jump"):
+	if is_on_floor() && is_jump_just_pressed():
 		velocity.y = -jump_speed;
 	
 	if position.y > 700:
